@@ -19,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
+
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -28,16 +29,12 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ComponentScan("web")
 public class HibConfig implements WebMvcConfigurer {
-
     private final ApplicationContext applicationContext;
-
     private final Environment env;
-
     public HibConfig(ApplicationContext applicationContext, Environment env) {
         this.applicationContext = applicationContext;
         this.env = env;
     }
-
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver tR = new SpringResourceTemplateResolver();
@@ -47,7 +44,6 @@ public class HibConfig implements WebMvcConfigurer {
         tR.setCharacterEncoding("UTF-8");
         return tR;
     }
-
     @Bean
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine te = new SpringTemplateEngine();
@@ -55,7 +51,6 @@ public class HibConfig implements WebMvcConfigurer {
         te.setEnableSpringELCompiler(true);
         return te;
     }
-
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
@@ -63,7 +58,6 @@ public class HibConfig implements WebMvcConfigurer {
         resolver.setCharacterEncoding("UTF-8");
         registry.viewResolver(resolver);
     }
-
     @Bean
     public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -73,7 +67,6 @@ public class HibConfig implements WebMvcConfigurer {
         dataSource.setPassword(env.getProperty("db.password"));
         return dataSource;
     }
-
     @Bean
     public LocalContainerEntityManagerFactoryBean getEntityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
@@ -83,7 +76,7 @@ public class HibConfig implements WebMvcConfigurer {
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
 
-        Properties props=new Properties();
+        Properties props = new Properties();
         props.put("hibernate.show_sql", env.getProperty("spring.jpa.show-sql"));
         props.put("hibernate.hbm2ddl.auto", env.getProperty("spring.jpa.hibernate.ddl-auto"));
         props.put("hibernate.dialect", env.getProperty("spring.jpa.properties.hibernate.dialect"));
