@@ -2,7 +2,7 @@ package web.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import web.Servise.UserService;
+import web.service.UserService;
 import web.model.User;
 
 @Controller

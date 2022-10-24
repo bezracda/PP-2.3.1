@@ -1,8 +1,7 @@
-package web.UserDao;
+package web.dao;
 
 import web.model.User;
 
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 public interface UserDaoInt {
